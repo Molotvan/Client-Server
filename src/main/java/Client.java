@@ -4,17 +4,26 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) {
         String host = "localhost";
         int port = 8089;
+        Scanner scanner = new Scanner(System.in);
         try(Socket clientSocket = new Socket(host, port);
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))){
-            out.println("Hello, ivan");
-            final String resp = in.readLine();
-            System.out.println(resp);
+            String question = "";
+            //System.out.println(in.readLine());
+            while(!(question.contains("end"))){
+                question = in.readLine();
+                System.out.println(question);
+                out.println(scanner.nextLine());
+//                if(!(question.contains("bye"))){
+//                    out.println(scanner.nextLine());
+//                }
+            }
         }catch (IOException e){
             e.getMessage();
         }
